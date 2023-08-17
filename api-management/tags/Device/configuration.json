@@ -1,0 +1,24 @@
+{
+  "id": "/tags/Device",
+  "name": "Device",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [
+    {
+      "apiId": "/apis/commissioning-topology;rev=1",
+      "description": "v1",
+      "externalDocsDescription": null,
+      "externalDocsUrl": null
+    }
+  ],
+  "operationIds": [
+    "/apis/commissioning-topology/operations/getDevice",
+    "/apis/commissioning-topology/operations/updateDevice",
+    "/apis/commissioning-topology/operations/deleteDevice",
+    "/apis/commissioning-topology/operations/swapDevice",
+    "/apis/commissioning-topology/operations/getDevices",
+    "/apis/commissioning-topology/operations/addDevice",
+    "/apis/commissioning-topology/operations/findDevice"
+  ],
+  "__GitModuleVersion": 17
+}

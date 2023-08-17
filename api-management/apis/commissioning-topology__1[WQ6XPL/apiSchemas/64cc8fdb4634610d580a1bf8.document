@@ -1,0 +1,2850 @@
+{
+  "components": {
+    "schemas": {
+      "JsonNode": {
+        "type": "object"
+      },
+      "MetadataEntryWeb": {
+        "required": [
+          "key"
+        ],
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "SiteAddressWeb": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string",
+            "description": "street of the installation",
+            "example": "31 Rue Pierre Mendès"
+          },
+          "city": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string",
+            "description": "city of the installation",
+            "example": "Eybens"
+          },
+          "zipCode": {
+            "maxLength": 10,
+            "minLength": 2,
+            "pattern": "^([a-zA-Z0-9- ]*)$",
+            "type": "string",
+            "description": "state / province code of the installation",
+            "example": "38320"
+          },
+          "stateCode": {
+            "maxLength": 5,
+            "minLength": 1,
+            "type": "string",
+            "description": "state / province code of the installation",
+            "example": "ARA"
+          },
+          "countryCode": {
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string",
+            "description": "country of the installation",
+            "example": "FR"
+          }
+        }
+      },
+      "SiteLocationWeb": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "maximum": 90.0,
+            "exclusiveMaximum": false,
+            "minimum": -90.0,
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Latitude geographical co-ordinate",
+            "format": "float",
+            "example": 45.14841
+          },
+          "longitude": {
+            "maximum": 180.0,
+            "exclusiveMaximum": false,
+            "minimum": -180.0,
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Longitude geographical co-ordinate",
+            "format": "float",
+            "example": 5.73708868
+          }
+        }
+      },
+      "SiteWeb": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "12345"
+          },
+          "name": {
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string",
+            "example": "Electropole"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 0,
+            "type": "string",
+            "example": "Description of the site"
+          },
+          "address": {
+            "$ref": "#/components/schemas/SiteAddressWeb"
+          },
+          "location": {
+            "$ref": "#/components/schemas/SiteLocationWeb"
+          },
+          "companyName": {
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string"
+          },
+          "contactName": {
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string"
+          },
+          "marketSegment": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          }
+        }
+      },
+      "UpdateTopologyRequest": {
+        "type": "object",
+        "properties": {
+          "site": {
+            "$ref": "#/components/schemas/SiteWeb"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          }
+        }
+      },
+      "TopologyResponse": {
+        "required": [
+          "createdAt",
+          "createdBy",
+          "id",
+          "status",
+          "updatedAt",
+          "updatedBy"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8ae2c6ec-490a-4440-b1f9-8308bc423b9f"
+          },
+          "status": {
+            "enum": [
+              "CREATED",
+              "IN_PROGRESS",
+              "VALIDATED",
+              "IN_ERROR"
+            ],
+            "type": "string",
+            "example": "IN_PROGRESS"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The instant of creation",
+            "format": "date-time",
+            "example": "2020-07-06T16:20:27.088+00:00"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "The user who did the creation",
+            "example": "123456"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "The instant of update",
+            "format": "date-time",
+            "example": "2020-07-06T18:20:27.088+00:00"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "The last user who did the update",
+            "example": "123456"
+          },
+          "site": {
+            "$ref": "#/components/schemas/SiteWeb"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          }
+        }
+      },
+      "AlarmBulk": {
+        "required": [
+          "localId",
+          "pdmShortNameId"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "example": "4"
+          },
+          "pdmShortNameId": {
+            "type": "string",
+            "example": "Whr_I"
+          }
+        }
+      },
+      "CommodityBulk": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "ElectricityID",
+              "GasID",
+              "FuelOilID",
+              "AirID",
+              "SteamID",
+              "WaterID",
+              "EnvID",
+              "OtherID"
+            ],
+            "type": "string"
+          },
+          "customType": {
+            "type": "string"
+          }
+        }
+      },
+      "CommunicationFacetBulk": {
+        "type": "object",
+        "properties": {
+          "pdmIdentifier": {
+            "type": "integer",
+            "format": "int32",
+            "example": 15144
+          },
+          "commissioningHint": {
+            "type": "string",
+            "example": "Electropole - Main Switchboard"
+          },
+          "vendorUrl": {
+            "type": "string",
+            "example": "https://se.com"
+          },
+          "isRoot": {
+            "type": "boolean",
+            "example": false
+          },
+          "communicationNodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommunicationNodeBulk"
+            },
+            "description": "List of communication nodes"
+          }
+        }
+      },
+      "CommunicationNetworkBulk": {
+        "required": [
+          "isEnabled",
+          "temporaryId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "temporaryId": {
+            "type": "string",
+            "description": "Id used to reference the communication network"
+          },
+          "type": {
+            "enum": [
+              "MODBUS_SL",
+              "MODBUS_TCP",
+              "MODBUS_VIRTUAL",
+              "ZIGBEE",
+              "ULP",
+              "DIGITAL_IO",
+              "LORA"
+            ],
+            "type": "string",
+            "example": "LORA"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          }
+        },
+        "description": "A communication network, with special information if it's of zigbee or modbus type",
+        "discriminator": {
+          "propertyName": "type"
+        },
+        "example": [
+          {
+            "temporaryId": "network-1",
+            "type": "LORA",
+            "isEnabled": false
+          },
+          {
+            "temporaryId": "network-2",
+            "type": "MODBUS_SL",
+            "isEnabled": false,
+            "baudRate": 15,
+            "parity": "ODD",
+            "numberOfStopBits": 10,
+            "frameDelay": 5,
+            "silentInterval": 5
+          },
+          {
+            "temporaryId": "network-3",
+            "type": "ZIGBEE",
+            "isEnabled": true,
+            "channelMode": "AUTO",
+            "channel": 8,
+            "transmissionPower": "LOW",
+            "dutyCycle": 12,
+            "networkPanId": "networkPanId1",
+            "networkOptimizationOnGoing": true
+          }
+        ]
+      },
+      "CommunicationNetworkModbusBulk": {
+        "required": [
+          "isEnabled",
+          "temporaryId",
+          "type"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommunicationNetworkBulk"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "baudRate": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "parity": {
+                "enum": [
+                  "ODD",
+                  "EVEN"
+                ],
+                "type": "string"
+              },
+              "numberOfStopBits": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "frameDelay": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "silentInterval": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "CommunicationNetworkZigbeeBulk": {
+        "required": [
+          "isEnabled",
+          "temporaryId",
+          "type"
+        ],
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommunicationNetworkBulk"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "channelMode": {
+                "enum": [
+                  "AUTO",
+                  "MANUAL"
+                ],
+                "type": "string"
+              },
+              "channel": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "transmissionPower": {
+                "enum": [
+                  "LOW",
+                  "HIGH"
+                ],
+                "type": "string"
+              },
+              "dutyCycle": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "networkPanId": {
+                "type": "string"
+              },
+              "networkOptimizationOnGoing": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "CommunicationNodeBulk": {
+        "required": [
+          "communicationNetworkTemporaryId",
+          "connectionStatus",
+          "localId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "MODBUS_SL",
+              "MODBUS_TCP",
+              "MODBUS_VIRTUAL",
+              "ZIGBEE_PRO",
+              "ZIGBEE_GREEN_POWER",
+              "ULP",
+              "DIGITAL_IO",
+              "LORA"
+            ],
+            "type": "string",
+            "example": "LORA"
+          },
+          "communicationNetworkTemporaryId": {
+            "type": "string",
+            "description": "The communication network temporary ID"
+          },
+          "localId": {
+            "type": "string",
+            "description": "local ID given by the gateway to this node."
+          },
+          "name": {
+            "type": "string",
+            "example": "Port 1"
+          },
+          "rank": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "connectionStatus": {
+            "enum": [
+              "JOINING",
+              "CONNECTED",
+              "NOT_CONNECTED",
+              "REMOVING"
+            ],
+            "type": "string",
+            "example": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING"
+          },
+          "address": {
+            "type": "string",
+            "example": "slaveAddress | IEEEAddress | rfid"
+          },
+          "isMaster": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "description": "List of communication nodes"
+      },
+      "CustomUsageBulk": {
+        "required": [
+          "name",
+          "temporaryId"
+        ],
+        "type": "object",
+        "properties": {
+          "temporaryId": {
+            "type": "string",
+            "description": "Id used to reference the custom usage from bulk data points"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "DataPointBulk": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "localId": {
+            "type": "string",
+            "description": "Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID",
+            "example": "3 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          },
+          "usage": {
+            "$ref": "#/components/schemas/UsageBulk"
+          },
+          "measurements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MeasurementBulk"
+            }
+          },
+          "alarms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlarmBulk"
+            }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventBulk"
+            }
+          },
+          "powerFeed": {
+            "enum": [
+              "TOP",
+              "BOTTOM",
+              "DIRECT",
+              "REVERSE"
+            ],
+            "type": "string"
+          },
+          "wiring": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "NA",
+              "NB",
+              "NC",
+              "NAB",
+              "NBA",
+              "ABC",
+              "ACB",
+              "BCA",
+              "BAC",
+              "CAB",
+              "CBA",
+              "NABC",
+              "NACB",
+              "NBCA",
+              "NBAC",
+              "NCAB",
+              "NCBA"
+            ],
+            "type": "string"
+          },
+          "commodity": {
+            "$ref": "#/components/schemas/CommodityBulk"
+          }
+        }
+      },
+      "DeviceBulk": {
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "description": "Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID",
+            "example": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          },
+          "temporaryPanelId": {
+            "type": "string"
+          },
+          "temporaryEquipmentId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetBulk"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          },
+          "dataPoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataPointBulk"
+            }
+          },
+          "temporaryGatewayId": {
+            "type": "string"
+          },
+          "testWeb": {
+            "$ref": "#/components/schemas/TestWeb"
+          }
+        }
+      },
+      "DigitalIdentifierWeb": {
+        "type": "object",
+        "properties": {
+          "urn:edm-se:em:core:pr:digital_id_namespace": {
+            "enum": [
+              "STRATEGICPLANID",
+              "BRIEFID",
+              "CONCEPTDESIGNID",
+              "BASICDESIGNID",
+              "DETAILDESIGNID",
+              "BIDDINGID",
+              "CONSTRUCTPLANNINGID",
+              "BUILDID",
+              "DELIVERYIDID",
+              "OPERATEID",
+              "MAINTAINID",
+              "EOLID",
+              "UNIVERSALID"
+            ],
+            "type": "string",
+            "description": "This is the digital id namespace",
+            "example": "UNIVERSALID"
+          },
+          "urn:edm-se:em:core:pr:digital_id": {
+            "type": "string",
+            "description": "This is the digital id",
+            "example": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        }
+      },
+      "ElectricalFacetWeb": {
+        "type": "object",
+        "properties": {
+          "ratedCurrent": {
+            "type": "number",
+            "description": "The rated current for this electrical device in Ampere (A)",
+            "format": "float",
+            "example": 16.5
+          },
+          "ratedVoltage": {
+            "type": "number",
+            "description": "The rated voltage for this electrical device in Ampere (A)",
+            "format": "float",
+            "example": 16.5
+          },
+          "noOfPoles": {
+            "type": "integer",
+            "description": "No of Poles",
+            "format": "int32",
+            "example": 3
+          },
+          "load": {
+            "$ref": "#/components/schemas/Load"
+          },
+          "mountingPosition": {
+            "$ref": "#/components/schemas/MountingPosition"
+          },
+          "tripCurveType": {
+            "enum": [
+              "B",
+              "C",
+              "D"
+            ],
+            "type": "string"
+          },
+          "isIncomer": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "EquipmentBulk": {
+        "required": [
+          "temporaryId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "temporaryId": {
+            "type": "string",
+            "description": "Id used to reference the equipment from bulk elements"
+          },
+          "temporaryPanelId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "Equipment name"
+          },
+          "label": {
+            "type": "string",
+            "example": "Equipment label"
+          },
+          "type": {
+            "enum": [
+              "COMPACT_NSX",
+              "COMPACT_NSX_M",
+              "POWERPACT_H_J_L_MINUS_FRAME",
+              "MASTERPACT_NT_NW",
+              "COMPACT_NS_POWERPACT_PR",
+              "MASTERPACT_MTZ",
+              "MV_CUBICLE",
+              "COMPOSITE"
+            ],
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "EventBulk": {
+        "required": [
+          "localId",
+          "pdmShortNameId"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "example": "6"
+          },
+          "pdmShortNameId": {
+            "type": "string",
+            "example": "Whr_I"
+          },
+          "triggeredBy": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "[\"EDM_01\",\"EDM_02\",\"EDM_03\"]"
+            },
+            "example": [
+              "EDM_01",
+              "EDM_02",
+              "EDM_03"
+            ]
+          }
+        }
+      },
+      "FirmwareFacetWeb": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "example": "2.2.0"
+          },
+          "updateProtocol": {
+            "enum": [
+              "IP",
+              "BLE_COAP",
+              "USB_COAP"
+            ],
+            "type": "string",
+            "example": "IP"
+          },
+          "mode": {
+            "enum": [
+              "BOOT",
+              "INDUS",
+              "FW_UPDATE",
+              "NOMINAL"
+            ],
+            "type": "string",
+            "example": "BOOT"
+          }
+        }
+      },
+      "GatewayBulk": {
+        "required": [
+          "temporaryId"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "description": "Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID",
+            "example": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          },
+          "temporaryPanelId": {
+            "type": "string"
+          },
+          "temporaryEquipmentId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetBulk"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          },
+          "dataPoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataPointBulk"
+            }
+          },
+          "temporaryId": {
+            "type": "string",
+            "description": "Id used to reference the gateway from bulk elements"
+          }
+        }
+      },
+      "HardwareFacetWeb": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "compact NSX"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.2.1"
+          }
+        }
+      },
+      "IdentificationFacetWeb": {
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string",
+            "example": "LV43v09"
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "498sf4sf4e60"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Schneider Electric"
+          },
+          "range": {
+            "type": "string",
+            "example": "compact NSX"
+          },
+          "model": {
+            "type": "string",
+            "example": "6.3.e"
+          },
+          "family": {
+            "type": "string",
+            "example": "gateway"
+          }
+        }
+      },
+      "LifeCycleWeb": {
+        "type": "object",
+        "properties": {
+          "manufacturingDate": {
+            "type": "string",
+            "description": "The manufacturing date",
+            "format": "date",
+            "example": "2020-07-06"
+          },
+          "installationDate": {
+            "type": "string",
+            "description": "The installation date",
+            "format": "date",
+            "example": "2020-07-06"
+          },
+          "manufacturingPlant": {
+            "type": "string",
+            "description": "The manufacturing plant name",
+            "example": "IN-Hubli SC Luminous"
+          }
+        }
+      },
+      "Load": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Light Kitchen"
+          }
+        }
+      },
+      "MeasurementBulk": {
+        "required": [
+          "localId",
+          "pdmShortNameId"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "example": "5"
+          },
+          "pdmShortNameId": {
+            "type": "string",
+            "example": "Whr_I"
+          }
+        }
+      },
+      "MountingPosition": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "enum": [
+              "TOP",
+              "BOTTOM"
+            ],
+            "type": "string"
+          },
+          "dataPointId": {
+            "type": "string",
+            "example": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+          }
+        }
+      },
+      "PanelBulk": {
+        "required": [
+          "temporaryId"
+        ],
+        "type": "object",
+        "properties": {
+          "temporaryId": {
+            "type": "string",
+            "description": "Id used to reference the panel from bulk elements"
+          },
+          "name": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "type": "string",
+            "example": "Lobby principal"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/PanelIdentificationFacetWeb"
+          },
+          "lifeCycle": {
+            "$ref": "#/components/schemas/LifeCycleWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "PanelIdentificationFacetWeb": {
+        "required": [
+          "commercialReference"
+        ],
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string",
+            "example": "LV43v09"
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "498sf4sf4e60"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Schneider Electric"
+          },
+          "range": {
+            "type": "string",
+            "example": "compact NSX"
+          },
+          "model": {
+            "type": "string",
+            "example": "6.3.e"
+          },
+          "family": {
+            "type": "string",
+            "example": "gateway"
+          }
+        }
+      },
+      "TestWeb": {
+        "required": [
+          "testStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "testStatus": {
+            "enum": [
+              "OK",
+              "KO",
+              "PARTIAL"
+            ],
+            "type": "string"
+          },
+          "comments": {
+            "type": "string",
+            "description": "This is test comments",
+            "example": "comments regarding test"
+          },
+          "testDate": {
+            "type": "string",
+            "description": "The test date",
+            "format": "date",
+            "example": "2020-07-06"
+          }
+        }
+      },
+      "TopologyBulk": {
+        "type": "object",
+        "properties": {
+          "site": {
+            "$ref": "#/components/schemas/SiteWeb"
+          },
+          "customUsages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomUsageBulk"
+            }
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceBulk"
+            }
+          },
+          "panels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PanelBulk"
+            }
+          },
+          "gateways": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GatewayBulk"
+            }
+          },
+          "equipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquipmentBulk"
+            }
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          },
+          "communicationNetworks": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CommunicationNetworkBulk"
+                },
+                {
+                  "$ref": "#/components/schemas/CommunicationNetworkModbusBulk"
+                },
+                {
+                  "$ref": "#/components/schemas/CommunicationNetworkZigbeeBulk"
+                }
+              ]
+            },
+            "description": "Communication networks, with special information if they are of zigbee or modbus type",
+            "example": [
+              {
+                "temporaryId": "network-1",
+                "type": "LORA",
+                "isEnabled": false
+              },
+              {
+                "temporaryId": "network-2",
+                "type": "MODBUS_SL",
+                "isEnabled": false,
+                "baudRate": 15,
+                "parity": "ODD",
+                "numberOfStopBits": 10,
+                "frameDelay": 5,
+                "silentInterval": 5
+              },
+              {
+                "temporaryId": "network-3",
+                "type": "ZIGBEE",
+                "isEnabled": true,
+                "channelMode": "AUTO",
+                "channel": 8,
+                "transmissionPower": "LOW",
+                "dutyCycle": 12,
+                "networkPanId": "networkPanId1",
+                "networkOptimizationOnGoing": true
+              }
+            ]
+          }
+        }
+      },
+      "UsageBulk": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "example": "101"
+          },
+          "type": {
+            "enum": [
+              "ACID",
+              "CompressedAirUsageID",
+              "ComputersUsageID",
+              "CookingUsageID",
+              "CoolingUsageID",
+              "DomesticHotWaterID",
+              "ElevatorEscalatorID",
+              "ElevatorsUsageID",
+              "FoodRefrigerationUsageID",
+              "GensetUsageID",
+              "HACID",
+              "HeatingUsageID",
+              "HotSanitaryWaterUsageID",
+              "HVACUsageID",
+              "ITID",
+              "LightingIntID",
+              "LightingParkExtID",
+              "LightingUsageID",
+              "MachineUsageID",
+              "MainIncomerUsageID",
+              "MixedUsagesID",
+              "OfficeEquipmentUsageID",
+              "OtherUsageID",
+              "ProcessUsageID",
+              "RefrigerationID",
+              "RenewableEnergyProductionUsageID",
+              "SocketsUsageID",
+              "SpecialLoadsUsageID",
+              "SubHeadOfGroupUsageID",
+              "TotalUsageID",
+              "TransportSysID",
+              "VaporUsageID",
+              "VentilationUsageID",
+              "WaterUsageID",
+              "EVID",
+              "PlugLoadsID",
+              "RenewableEnergyLoadUsageID"
+            ],
+            "type": "string"
+          },
+          "temporaryUsageId": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceReference": {
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string",
+            "example": "LV43v09"
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "498sf4sf4e60"
+          }
+        }
+      },
+      "TopologyBulkResponse": {
+        "type": "object",
+        "properties": {
+          "skippedDeviceReferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceReference"
+            }
+          },
+          "skipDeviceMessages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          },
+          "status": {
+            "enum": [
+              "CREATED",
+              "IN_PROGRESS",
+              "VALIDATED",
+              "IN_ERROR"
+            ],
+            "type": "string"
+          },
+          "updatedBy": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "site": {
+            "$ref": "#/components/schemas/SiteWeb"
+          }
+        }
+      },
+      "EquipmentIdentificationFacetWeb": {
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string",
+            "example": "LV43v09"
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "498sf4sf4e60"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Schneider Electric"
+          },
+          "range": {
+            "type": "string",
+            "example": "compact NSX"
+          },
+          "model": {
+            "type": "string",
+            "example": "6.3.e"
+          },
+          "family": {
+            "type": "string",
+            "example": "gateway"
+          }
+        }
+      },
+      "UpdateEquipmentRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Equipment name"
+          },
+          "label": {
+            "type": "string",
+            "example": "Equipment label"
+          },
+          "type": {
+            "enum": [
+              "COMPACT_NSX",
+              "COMPACT_NSX_M",
+              "POWERPACT_H_J_L_MINUS_FRAME",
+              "MASTERPACT_NT_NW",
+              "COMPACT_NS_POWERPACT_PR",
+              "MASTERPACT_MTZ",
+              "MV_CUBICLE",
+              "COMPOSITE"
+            ],
+            "type": "string",
+            "example": "Equipment type"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/EquipmentIdentificationFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "EquipmentResponse": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12345678-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "name": {
+            "type": "string",
+            "example": "Equipment name"
+          },
+          "label": {
+            "type": "string",
+            "example": "Equipment label"
+          },
+          "type": {
+            "enum": [
+              "COMPACT_NSX",
+              "COMPACT_NSX_M",
+              "POWERPACT_H_J_L_MINUS_FRAME",
+              "MASTERPACT_NT_NW",
+              "COMPACT_NS_POWERPACT_PR",
+              "MASTERPACT_MTZ",
+              "MV_CUBICLE",
+              "COMPOSITE"
+            ],
+            "type": "string",
+            "example": "Equipment type"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/EquipmentIdentificationFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "CommunicationFacetWeb": {
+        "type": "object",
+        "properties": {
+          "pdmIdentifier": {
+            "type": "integer",
+            "format": "int32",
+            "example": 15144
+          },
+          "vendorUrl": {
+            "type": "string",
+            "example": "https://se.com"
+          },
+          "isRoot": {
+            "type": "boolean",
+            "example": false
+          },
+          "commissioningHint": {
+            "type": "string",
+            "example": "Electropole - Main Switchboard"
+          },
+          "communicationNodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommunicationNodeWeb"
+            }
+          }
+        }
+      },
+      "CommunicationNodeWeb": {
+        "required": [
+          "communicationNetworkId",
+          "connectionStatus",
+          "id",
+          "localId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "enum": [
+              "MODBUS_SL",
+              "MODBUS_TCP",
+              "MODBUS_VIRTUAL",
+              "ZIGBEE_PRO",
+              "ZIGBEE_GREEN_POWER",
+              "ULP",
+              "DIGITAL_IO",
+              "LORA"
+            ],
+            "type": "string"
+          },
+          "communicationNetworkId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "localId": {
+            "type": "string",
+            "description": "local ID given by the gateway to this node"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "connectionStatus": {
+            "enum": [
+              "JOINING",
+              "CONNECTED",
+              "NOT_CONNECTED",
+              "REMOVING"
+            ],
+            "type": "string",
+            "example": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING"
+          },
+          "address": {
+            "type": "string",
+            "example": "slaveAddress | IEEEAddress | rfid"
+          },
+          "isMaster": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateDeviceRequest": {
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "description": "Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID",
+            "example": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "gatewayId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "755ee1c8-3c5c-4d82-8f6f-ae14db0b218c"
+          },
+          "equipmentId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12345678-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetWeb"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "DeviceResponse": {
+        "required": [
+          "id",
+          "identification",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f80f64ad-5e2b-413e-990d-35818b5ddf4d"
+          },
+          "localId": {
+            "type": "string",
+            "description": "Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID",
+            "example": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)"
+          },
+          "type": {
+            "enum": [
+              "DEVICE",
+              "GATEWAY"
+            ],
+            "type": "string"
+          },
+          "gatewayId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "755ee1c8-3c5c-4d82-8f6f-ae14db0b218c"
+          },
+          "equipmentId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12345678-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetWeb"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "SwapDeviceRequest": {
+        "required": [
+          "newCommercialReference"
+        ],
+        "type": "object",
+        "properties": {
+          "newCommercialReference": {
+            "type": "string",
+            "example": "LV43v09"
+          },
+          "newSerialNumber": {
+            "type": "string",
+            "example": "498sf4sf4e60"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "CreateTopologyRequest": {
+        "type": "object",
+        "properties": {
+          "site": {
+            "$ref": "#/components/schemas/SiteWeb"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          }
+        }
+      },
+      "Gateway": {
+        "required": [
+          "commercialReference",
+          "serialNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "GenerateReportRequest": {
+        "required": [
+          "gateway",
+          "panelUrl",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "COMMISSIONING_GATEWAY"
+            ],
+            "type": "string"
+          },
+          "panelUrl": {
+            "type": "string"
+          },
+          "gateway": {
+            "$ref": "#/components/schemas/Gateway"
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale used for the generation of the report. If the report is not available in the requested locale, the en locale is used",
+            "example": "en_US"
+          }
+        }
+      },
+      "AddEquipmentRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Equipment name"
+          },
+          "label": {
+            "type": "string",
+            "example": "Equipment label"
+          },
+          "type": {
+            "enum": [
+              "COMPACT_NSX",
+              "COMPACT_NSX_M",
+              "POWERPACT_H_J_L_MINUS_FRAME",
+              "MASTERPACT_NT_NW",
+              "COMPACT_NS_POWERPACT_PR",
+              "MASTERPACT_MTZ",
+              "MV_CUBICLE",
+              "COMPOSITE"
+            ],
+            "type": "string",
+            "example": "Equipment type"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/EquipmentIdentificationFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "AddDeviceRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "description": "Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID",
+            "example": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "gatewayId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "755ee1c8-3c5c-4d82-8f6f-ae14db0b218c"
+          },
+          "equipmentId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12345678-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "type": {
+            "enum": [
+              "DEVICE",
+              "GATEWAY"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetBulk"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          }
+        }
+      },
+      "MailWeb": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "subject": {
+            "type": "string"
+          },
+          "templateId": {
+            "type": "string"
+          },
+          "templateValueMap": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "NotificationWeb": {
+        "type": "object",
+        "properties": {
+          "notificationRequired": {
+            "type": "boolean"
+          },
+          "mail": {
+            "$ref": "#/components/schemas/MailWeb"
+          }
+        }
+      },
+      "ValidateTopologyCommandRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "VALIDATE"
+            ],
+            "type": "string",
+            "description": "Type of the requested command"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          },
+          "notification": {
+            "$ref": "#/components/schemas/NotificationWeb"
+          }
+        }
+      },
+      "CommandResponse": {
+        "required": [
+          "createdAt",
+          "id",
+          "updatedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "12345678-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "topologyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "8ae2c6ec-490a-4440-b1f9-8308bc423b9f"
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AddFeedbackRequest": {
+        "required": [
+          "issuer",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "enum": [
+              "DONE",
+              "CREATED",
+              "IN_PROGRESS",
+              "PARTIAL",
+              "ERROR"
+            ],
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeedbackErrorWeb"
+            }
+          }
+        }
+      },
+      "FeedbackErrorWeb": {
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "FeedbackResponse": {
+        "required": [
+          "createdAt",
+          "issuer",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "enum": [
+              "DONE",
+              "CREATED",
+              "IN_PROGRESS",
+              "PARTIAL",
+              "ERROR"
+            ],
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeedbackErrorWeb"
+            }
+          }
+        }
+      },
+      "SearchTopologiesRequest": {
+        "type": "object",
+        "properties": {
+          "gateways": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchTopologyRequestDevice"
+            }
+          },
+          "devices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchTopologyRequestDevice"
+            }
+          },
+          "equipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchTopologyRequestEquipment"
+            }
+          },
+          "panels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchTopologyRequestPanel"
+            }
+          },
+          "device": {
+            "$ref": "#/components/schemas/SearchTopologyRequestDevice"
+          },
+          "panel": {
+            "$ref": "#/components/schemas/SearchTopologyRequestPanel"
+          }
+        },
+        "description": "Fields **panel** and **device** are deprecated and will be removed in future versions.\nPlease use **panels** and **devices** instead.\nDon’t mix id and identification facet and digital identifiers for searching devices (Example is invalid).\n"
+      },
+      "SearchTopologyRequestDevice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f80f64ad-5e2b-413e-990d-35818b5ddf4d"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/SearchTopologyRequestIdentification"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "SearchTopologyRequestEquipment": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/SearchTopologyRequestIdentification"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "SearchTopologyRequestIdentification": {
+        "required": [
+          "commercialReference",
+          "serialNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string",
+            "example": "P50x03"
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "325s42sf4a89"
+          }
+        }
+      },
+      "SearchTopologyRequestPanel": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/SearchTopologyRequestIdentification"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "SearchTopologyResponse": {
+        "required": [
+          "createdAt",
+          "createdBy",
+          "id",
+          "status",
+          "updatedAt",
+          "updatedBy"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The topology id",
+            "format": "uuid",
+            "example": "8ae2c6ec-490a-4440-b1f9-8308bc423b9f"
+          },
+          "status": {
+            "enum": [
+              "CREATED",
+              "IN_PROGRESS",
+              "VALIDATED",
+              "IN_ERROR"
+            ],
+            "type": "string",
+            "description": "The topology status",
+            "example": "IN_PROGRESS"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The instant of creation",
+            "format": "date-time",
+            "example": "2020-07-06T16:20:27.088+00:00"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "The user who did the creation",
+            "example": "123456"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "The instant of update",
+            "format": "date-time",
+            "example": "2020-07-06T18:20:27.088+00:00"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "The last user who did the update",
+            "example": "123456"
+          }
+        }
+      },
+      "SearchGatewayDataTopologiesRequest": {
+        "type": "object",
+        "properties": {
+          "gatewayName": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "propertyFilter": {
+            "type": "string"
+          }
+        }
+      },
+      "PaginationTopologyResponse": {
+        "required": [
+          "topologies"
+        ],
+        "type": "object",
+        "properties": {
+          "topologies": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "nbOfPages": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SearchFullTopologiesRequest": {
+        "required": [
+          "gatewayIdentifications"
+        ],
+        "type": "object",
+        "properties": {
+          "gatewayIdentifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchFullTopologiesRequestIdentification"
+            }
+          },
+          "propertyFilter": {
+            "type": "string"
+          }
+        }
+      },
+      "SearchFullTopologiesRequestIdentification": {
+        "required": [
+          "commercialReference"
+        ],
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string",
+            "example": "P50x03"
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "325s42sf4a89"
+          }
+        }
+      },
+      "TopologyBulkObjects": {
+        "required": [
+          "epcTopology"
+        ],
+        "type": "object",
+        "properties": {
+          "gatewayTopology": {
+            "$ref": "#/components/schemas/TopologyBulk"
+          },
+          "epcTopology": {
+            "$ref": "#/components/schemas/TopologyBulk"
+          }
+        }
+      },
+      "FindDeviceRequest": {
+        "required": [
+          "commercialReference"
+        ],
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "FindDeviceResponse": {
+        "required": [
+          "id",
+          "topologyId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "topologyId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "localId": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "DEVICE",
+              "GATEWAY"
+            ],
+            "type": "string"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "gatewayId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "equipmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacet"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetWeb"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "IdentificationFacet": {
+        "type": "object",
+        "properties": {
+          "commercialReference": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "range": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          }
+        }
+      },
+      "AlarmResponse": {
+        "required": [
+          "id",
+          "localId",
+          "pdmShortNameId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "41243f53-4c30-4b24-8beb-aeb960dd9eec"
+          },
+          "localId": {
+            "type": "string",
+            "example": "4"
+          },
+          "pdmShortNameId": {
+            "type": "string"
+          }
+        }
+      },
+      "CommodityResponse": {
+        "required": [
+          "commodityType"
+        ],
+        "type": "object",
+        "properties": {
+          "commodityType": {
+            "enum": [
+              "ElectricityID",
+              "GasID",
+              "FuelOilID",
+              "AirID",
+              "SteamID",
+              "WaterID",
+              "EnvID",
+              "OtherID"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "CommunicationNetworkResponse": {
+        "required": [
+          "id",
+          "isEnabled",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "87654321-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "type": {
+            "enum": [
+              "MODBUS_SL",
+              "MODBUS_TCP",
+              "MODBUS_VIRTUAL",
+              "ZIGBEE",
+              "ULP",
+              "DIGITAL_IO",
+              "LORA"
+            ],
+            "type": "string",
+            "example": "LORA"
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "CustomUsage": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "EventResponse": {
+        "required": [
+          "id",
+          "localId",
+          "pdmShortNameId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "aed7450e-f7e8-c821-aac4-c9a8f741f159"
+          },
+          "localId": {
+            "type": "string",
+            "example": "6"
+          },
+          "pdmShortNameId": {
+            "type": "string"
+          },
+          "triggeredBy": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "FullDataPointResponse": {
+        "required": [
+          "localId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The data point id",
+            "format": "uuid",
+            "example": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+          },
+          "name": {
+            "type": "string"
+          },
+          "localId": {
+            "type": "string"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/UsageResponse"
+          },
+          "measurements": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MeasurementResponse"
+            }
+          },
+          "alarms": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlarmResponse"
+            }
+          },
+          "events": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventResponse"
+            }
+          },
+          "powerFeed": {
+            "enum": [
+              "TOP",
+              "BOTTOM",
+              "DIRECT",
+              "REVERSE"
+            ],
+            "type": "string"
+          },
+          "wiring": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "NA",
+              "NB",
+              "NC",
+              "NAB",
+              "NBA",
+              "ABC",
+              "ACB",
+              "BCA",
+              "BAC",
+              "CAB",
+              "CBA",
+              "NABC",
+              "NACB",
+              "NBCA",
+              "NBAC",
+              "NCAB",
+              "NCBA"
+            ],
+            "type": "string"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          },
+          "commodity": {
+            "$ref": "#/components/schemas/CommodityResponse"
+          }
+        }
+      },
+      "FullDeviceResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "localId": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "DEVICE",
+              "GATEWAY"
+            ],
+            "type": "string"
+          },
+          "panelId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "gatewayId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "equipmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/IdentificationFacetWeb"
+          },
+          "communication": {
+            "$ref": "#/components/schemas/CommunicationFacetWeb"
+          },
+          "firmware": {
+            "$ref": "#/components/schemas/FirmwareFacetWeb"
+          },
+          "hardware": {
+            "$ref": "#/components/schemas/HardwareFacetWeb"
+          },
+          "electrical": {
+            "$ref": "#/components/schemas/ElectricalFacetWeb"
+          },
+          "dataPoints": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FullDataPointResponse"
+            }
+          },
+          "testWeb": {
+            "$ref": "#/components/schemas/TestWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          }
+        }
+      },
+      "FullTopologyResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The topology id",
+            "format": "uuid",
+            "example": "8ae2c6ec-490a-4440-b1f9-8308bc423b9f"
+          },
+          "status": {
+            "enum": [
+              "CREATED",
+              "IN_PROGRESS",
+              "VALIDATED",
+              "IN_ERROR"
+            ],
+            "type": "string"
+          },
+          "site": {
+            "$ref": "#/components/schemas/SiteWeb"
+          },
+          "customUsages": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomUsage"
+            }
+          },
+          "devices": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FullDeviceResponse"
+            }
+          },
+          "panels": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PanelResponse"
+            }
+          },
+          "equipments": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquipmentResponse"
+            }
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetadataEntryWeb"
+            }
+          },
+          "communicationNetworks": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommunicationNetworkResponse"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The instant of creation",
+            "format": "date-time",
+            "example": "2020-07-06T16:20:27.088+00:00"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "The user who did the creation",
+            "example": "123456"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "The instant of update",
+            "format": "date-time",
+            "example": "2020-07-06T18:20:27.088+00:00"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "The last user who did the update",
+            "example": "123456"
+          }
+        }
+      },
+      "MeasurementResponse": {
+        "required": [
+          "id",
+          "localId",
+          "pdmShortNameId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "fd20b02b-5434-480d-8962-c1cc2f0dea1c"
+          },
+          "localId": {
+            "type": "string",
+            "example": "5"
+          },
+          "pdmShortNameId": {
+            "type": "string"
+          }
+        }
+      },
+      "PanelResponse": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6dceadd1-8e13-490f-985b-29500e852a61"
+          },
+          "name": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "type": "string",
+            "example": "Lobby principal"
+          },
+          "identification": {
+            "$ref": "#/components/schemas/PanelIdentificationFacetWeb"
+          },
+          "digitalIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DigitalIdentifierWeb"
+            }
+          },
+          "lifeCycle": {
+            "$ref": "#/components/schemas/LifeCycleWeb"
+          }
+        }
+      },
+      "UsageResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "localId": {
+            "type": "string",
+            "example": "101"
+          },
+          "type": {
+            "enum": [
+              "ACID",
+              "CompressedAirUsageID",
+              "ComputersUsageID",
+              "CookingUsageID",
+              "CoolingUsageID",
+              "DomesticHotWaterID",
+              "ElevatorEscalatorID",
+              "ElevatorsUsageID",
+              "FoodRefrigerationUsageID",
+              "GensetUsageID",
+              "HACID",
+              "HeatingUsageID",
+              "HotSanitaryWaterUsageID",
+              "HVACUsageID",
+              "ITID",
+              "LightingIntID",
+              "LightingParkExtID",
+              "LightingUsageID",
+              "MachineUsageID",
+              "MainIncomerUsageID",
+              "MixedUsagesID",
+              "OfficeEquipmentUsageID",
+              "OtherUsageID",
+              "ProcessUsageID",
+              "RefrigerationID",
+              "RenewableEnergyProductionUsageID",
+              "SocketsUsageID",
+              "SpecialLoadsUsageID",
+              "SubHeadOfGroupUsageID",
+              "TotalUsageID",
+              "TransportSysID",
+              "VaporUsageID",
+              "VentilationUsageID",
+              "WaterUsageID",
+              "EVID",
+              "PlugLoadsID",
+              "RenewableEnergyLoadUsageID"
+            ],
+            "type": "string"
+          },
+          "customUsageId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Topologies-topologyId-GatewaysGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/DeviceResponse"
+        },
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-ReportPost200ApplicationPdfResponse": {
+        "type": "string",
+        "format": "binary",
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-EquipmentsGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/EquipmentResponse"
+        },
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-DevicesGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/DeviceResponse"
+        },
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-CommandsGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommandResponse"
+        },
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-Commands-commandId-FeedbacksGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/FeedbackResponse"
+        },
+        "x-apim-inline": true
+      },
+      "TopologiesSearchPost200-Response": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/SearchTopologyResponse"
+        },
+        "x-apim-inline": true
+      },
+      "TopologiesSearchFullPost200ApplicationJsonResponse": {
+        "type": "string",
+        "x-apim-inline": true
+      },
+      "Commands-commandId-FeedbacksGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/FeedbackResponse"
+        },
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-Gateways-gatewayId-DevicesGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/DeviceResponse"
+        },
+        "x-apim-inline": true
+      },
+      "Topologies-topologyId-Communication-networksGet200-Response": {
+        "uniqueItems": true,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CommunicationNetworkResponse"
+        },
+        "x-apim-inline": true
+      }
+    }
+  }
+}

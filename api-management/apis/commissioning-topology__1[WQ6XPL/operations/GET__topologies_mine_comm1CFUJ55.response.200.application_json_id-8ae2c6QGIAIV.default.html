@@ -1,0 +1,215 @@
+{
+  "id": "8ae2c6ec-490a-4440-b1f9-8308bc423b9f",
+  "status": "CREATED",
+  "site": {
+    "id": "12345",
+    "name": "Electropole",
+    "description": "Description of the site",
+    "address": {
+      "street": "31 Rue Pierre Mendès",
+      "city": "Eybens",
+      "zipCode": "38320",
+      "stateCode": "ARA",
+      "countryCode": "FR"
+    },
+    "location": {
+      "latitude": 45.14841,
+      "longitude": 5.73708868
+    },
+    "companyName": "string",
+    "contactName": "string",
+    "marketSegment": "string"
+  },
+  "customUsages": [
+    {
+      "id": "string",
+      "name": "string"
+    }
+  ],
+  "devices": [
+    {
+      "id": "string",
+      "localId": "string",
+      "type": "DEVICE",
+      "panelId": "string",
+      "gatewayId": "string",
+      "equipmentId": "string",
+      "name": "string",
+      "label": "string",
+      "identification": {
+        "commercialReference": "LV43v09",
+        "serialNumber": "498sf4sf4e60",
+        "brand": "Schneider Electric",
+        "range": "compact NSX",
+        "model": "6.3.e",
+        "family": "gateway"
+      },
+      "communication": {
+        "pdmIdentifier": 15144,
+        "vendorUrl": "https://se.com",
+        "isRoot": false,
+        "commissioningHint": "Electropole - Main Switchboard",
+        "communicationNodes": [
+          {
+            "id": "string",
+            "type": "MODBUS_SL",
+            "communicationNetworkId": "string",
+            "localId": "string",
+            "name": "string",
+            "rank": 0,
+            "connectionStatus": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING",
+            "address": "slaveAddress | IEEEAddress | rfid",
+            "isMaster": true
+          }
+        ]
+      },
+      "firmware": {
+        "version": "2.2.0",
+        "updateProtocol": "IP",
+        "mode": "BOOT"
+      },
+      "hardware": {
+        "type": "compact NSX",
+        "version": "1.2.1"
+      },
+      "electrical": {
+        "ratedCurrent": 16.5,
+        "ratedVoltage": 16.5,
+        "noOfPoles": 3,
+        "load": {
+          "name": "Light Kitchen"
+        },
+        "mountingPosition": {
+          "position": "TOP",
+          "dataPointId": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+        },
+        "tripCurveType": "B",
+        "isIncomer": false
+      },
+      "dataPoints": [
+        {
+          "id": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196",
+          "name": "string",
+          "localId": "string",
+          "usage": {
+            "localId": "101",
+            "type": "ACID",
+            "customUsageId": "string"
+          },
+          "measurements": [
+            {
+              "id": "fd20b02b-5434-480d-8962-c1cc2f0dea1c",
+              "localId": "5",
+              "pdmShortNameId": "string"
+            }
+          ],
+          "alarms": [
+            {
+              "id": "41243f53-4c30-4b24-8beb-aeb960dd9eec",
+              "localId": "4",
+              "pdmShortNameId": "string"
+            }
+          ],
+          "events": [
+            {
+              "id": "aed7450e-f7e8-c821-aac4-c9a8f741f159",
+              "localId": "6",
+              "pdmShortNameId": "string",
+              "triggeredBy": [
+                "string"
+              ]
+            }
+          ],
+          "powerFeed": "TOP",
+          "wiring": "A",
+          "digitalIdentifiers": [
+            {
+              "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+              "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+            }
+          ],
+          "commodity": {
+            "commodityType": "ElectricityID",
+            "type": "string"
+          }
+        }
+      ],
+      "testWeb": {
+        "testStatus": "OK",
+        "comments": "comments regarding test",
+        "testDate": "2020-07-06"
+      },
+      "digitalIdentifiers": [
+        {
+          "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+          "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+        }
+      ]
+    }
+  ],
+  "panels": [
+    {
+      "id": "6dceadd1-8e13-490f-985b-29500e852a61",
+      "name": "Lobby principal",
+      "identification": {
+        "commercialReference": "LV43v09",
+        "serialNumber": "498sf4sf4e60",
+        "brand": "Schneider Electric",
+        "range": "compact NSX",
+        "model": "6.3.e",
+        "family": "gateway"
+      },
+      "digitalIdentifiers": [
+        {
+          "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+          "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+        }
+      ],
+      "lifeCycle": {
+        "manufacturingDate": "2020-07-06",
+        "installationDate": "2020-07-06",
+        "manufacturingPlant": "IN-Hubli SC Luminous"
+      }
+    }
+  ],
+  "equipments": [
+    {
+      "id": "12345678-f7e8-c821-aac4-c9a8f741f159",
+      "name": "Equipment name",
+      "label": "Equipment label",
+      "type": "Equipment type",
+      "panelId": "6dceadd1-8e13-490f-985b-29500e852a61",
+      "identification": {
+        "commercialReference": "LV43v09",
+        "serialNumber": "498sf4sf4e60",
+        "brand": "Schneider Electric",
+        "range": "compact NSX",
+        "model": "6.3.e",
+        "family": "gateway"
+      },
+      "digitalIdentifiers": [
+        {
+          "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+          "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+        }
+      ]
+    }
+  ],
+  "metadata": [
+    {
+      "key": "string",
+      "value": "string"
+    }
+  ],
+  "communicationNetworks": [
+    {
+      "id": "87654321-f7e8-c821-aac4-c9a8f741f159",
+      "type": "LORA",
+      "isEnabled": true
+    }
+  ],
+  "createdAt": "2020-07-06T16:20:27.088+00:00",
+  "createdBy": "123456",
+  "updatedAt": "2020-07-06T18:20:27.088+00:00",
+  "updatedBy": "123456"
+}

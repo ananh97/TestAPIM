@@ -1,0 +1,19 @@
+{
+  "id": "/products/commissioning-topology",
+  "name": "commissioning",
+  "$ref-description": "api-management/products/commissioning/product.description.html",
+  "terms": null,
+  "subscriptionRequired": true,
+  "approvalRequired": true,
+  "subscriptionsLimit": 1,
+  "state": "published",
+  "$refs-groups": [
+    "api-management/groups/Administrators/configuration.json",
+    "api-management/groups/Developers/configuration.json",
+    "api-management/groups/Guests/configuration.json"
+  ],
+  "$refs-apis": [
+    "api-management/apis/commissioning-topology__1[WQ6XPL/configuration.json"
+  ],
+  "__GitModuleVersion": 17
+}

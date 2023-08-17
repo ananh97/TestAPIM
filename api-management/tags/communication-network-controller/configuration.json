@@ -1,0 +1,11 @@
+{
+  "id": "/tags/communication-network-controller",
+  "name": "communication-network-controller",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [],
+  "operationIds": [
+    "/apis/commissioning-topology/operations/getCommunicationNetworks"
+  ],
+  "__GitModuleVersion": 17
+}

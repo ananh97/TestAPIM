@@ -1,0 +1,19 @@
+{
+  "id": "/tags/Gateway",
+  "name": "Gateway",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [
+    {
+      "apiId": "/apis/commissioning-topology;rev=1",
+      "description": "v1",
+      "externalDocsDescription": null,
+      "externalDocsUrl": null
+    }
+  ],
+  "operationIds": [
+    "/apis/commissioning-topology/operations/getGateways",
+    "/apis/commissioning-topology/operations/getGatewayDevices"
+  ],
+  "__GitModuleVersion": 17
+}

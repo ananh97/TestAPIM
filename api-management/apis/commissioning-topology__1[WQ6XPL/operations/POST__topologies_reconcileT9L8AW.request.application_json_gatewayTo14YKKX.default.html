@@ -1,0 +1,676 @@
+{
+  "gatewayTopology": {
+    "site": {
+      "id": "12345",
+      "name": "Electropole",
+      "description": "Description of the site",
+      "address": {
+        "street": "31 Rue Pierre Mendès",
+        "city": "Eybens",
+        "zipCode": "38320",
+        "stateCode": "ARA",
+        "countryCode": "FR"
+      },
+      "location": {
+        "latitude": 45.14841,
+        "longitude": 5.73708868
+      },
+      "companyName": "string",
+      "contactName": "string",
+      "marketSegment": "string"
+    },
+    "customUsages": [
+      {
+        "temporaryId": "string",
+        "name": "string"
+      }
+    ],
+    "devices": [
+      {
+        "localId": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ],
+        "temporaryPanelId": "string",
+        "temporaryEquipmentId": "string",
+        "name": "string",
+        "label": "string",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "communication": {
+          "pdmIdentifier": 15144,
+          "commissioningHint": "Electropole - Main Switchboard",
+          "vendorUrl": "https://se.com",
+          "isRoot": false,
+          "communicationNodes": [
+            {
+              "type": "LORA",
+              "communicationNetworkTemporaryId": "string",
+              "localId": "string",
+              "name": "Port 1",
+              "rank": 1,
+              "connectionStatus": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING",
+              "address": "slaveAddress | IEEEAddress | rfid",
+              "isMaster": true
+            }
+          ]
+        },
+        "firmware": {
+          "version": "2.2.0",
+          "updateProtocol": "IP",
+          "mode": "BOOT"
+        },
+        "hardware": {
+          "type": "compact NSX",
+          "version": "1.2.1"
+        },
+        "electrical": {
+          "ratedCurrent": 16.5,
+          "ratedVoltage": 16.5,
+          "noOfPoles": 3,
+          "load": {
+            "name": "Light Kitchen"
+          },
+          "mountingPosition": {
+            "position": "TOP",
+            "dataPointId": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+          },
+          "tripCurveType": "B",
+          "isIncomer": false
+        },
+        "dataPoints": [
+          {
+            "name": "string",
+            "localId": "3 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+            "digitalIdentifiers": [
+              {
+                "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+                "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+              }
+            ],
+            "usage": {
+              "localId": "101",
+              "type": "ACID",
+              "temporaryUsageId": "string"
+            },
+            "measurements": [
+              {
+                "localId": "5",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "alarms": [
+              {
+                "localId": "4",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "events": [
+              {
+                "localId": "6",
+                "pdmShortNameId": "Whr_I",
+                "triggeredBy": [
+                  "EDM_01",
+                  "EDM_02",
+                  "EDM_03"
+                ]
+              }
+            ],
+            "powerFeed": "TOP",
+            "wiring": "A",
+            "commodity": {
+              "type": "ElectricityID",
+              "customType": "string"
+            }
+          }
+        ],
+        "temporaryGatewayId": "string",
+        "testWeb": {
+          "testStatus": "OK",
+          "comments": "comments regarding test",
+          "testDate": "2020-07-06"
+        }
+      }
+    ],
+    "panels": [
+      {
+        "temporaryId": "string",
+        "name": "Lobby principal",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "lifeCycle": {
+          "manufacturingDate": "2020-07-06",
+          "installationDate": "2020-07-06",
+          "manufacturingPlant": "IN-Hubli SC Luminous"
+        },
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ]
+      }
+    ],
+    "gateways": [
+      {
+        "localId": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ],
+        "temporaryPanelId": "string",
+        "temporaryEquipmentId": "string",
+        "name": "string",
+        "label": "string",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "communication": {
+          "pdmIdentifier": 15144,
+          "commissioningHint": "Electropole - Main Switchboard",
+          "vendorUrl": "https://se.com",
+          "isRoot": false,
+          "communicationNodes": [
+            {
+              "type": "LORA",
+              "communicationNetworkTemporaryId": "string",
+              "localId": "string",
+              "name": "Port 1",
+              "rank": 1,
+              "connectionStatus": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING",
+              "address": "slaveAddress | IEEEAddress | rfid",
+              "isMaster": true
+            }
+          ]
+        },
+        "firmware": {
+          "version": "2.2.0",
+          "updateProtocol": "IP",
+          "mode": "BOOT"
+        },
+        "hardware": {
+          "type": "compact NSX",
+          "version": "1.2.1"
+        },
+        "electrical": {
+          "ratedCurrent": 16.5,
+          "ratedVoltage": 16.5,
+          "noOfPoles": 3,
+          "load": {
+            "name": "Light Kitchen"
+          },
+          "mountingPosition": {
+            "position": "TOP",
+            "dataPointId": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+          },
+          "tripCurveType": "B",
+          "isIncomer": false
+        },
+        "dataPoints": [
+          {
+            "name": "string",
+            "localId": "3 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+            "digitalIdentifiers": [
+              {
+                "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+                "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+              }
+            ],
+            "usage": {
+              "localId": "101",
+              "type": "ACID",
+              "temporaryUsageId": "string"
+            },
+            "measurements": [
+              {
+                "localId": "5",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "alarms": [
+              {
+                "localId": "4",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "events": [
+              {
+                "localId": "6",
+                "pdmShortNameId": "Whr_I",
+                "triggeredBy": [
+                  "EDM_01",
+                  "EDM_02",
+                  "EDM_03"
+                ]
+              }
+            ],
+            "powerFeed": "TOP",
+            "wiring": "A",
+            "commodity": {
+              "type": "ElectricityID",
+              "customType": "string"
+            }
+          }
+        ],
+        "temporaryId": "string"
+      }
+    ],
+    "equipments": [
+      {
+        "id": "string",
+        "temporaryId": "string",
+        "temporaryPanelId": "string",
+        "name": "Equipment name",
+        "label": "Equipment label",
+        "type": "COMPACT_NSX",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ]
+      }
+    ],
+    "metadata": [
+      {
+        "key": "string",
+        "value": "string"
+      }
+    ],
+    "communicationNetworks": [
+      {
+        "temporaryId": "network-1",
+        "type": "LORA",
+        "isEnabled": false
+      },
+      {
+        "temporaryId": "network-2",
+        "type": "MODBUS_SL",
+        "isEnabled": false,
+        "baudRate": 15,
+        "parity": "ODD",
+        "numberOfStopBits": 10,
+        "frameDelay": 5,
+        "silentInterval": 5
+      },
+      {
+        "temporaryId": "network-3",
+        "type": "ZIGBEE",
+        "isEnabled": true,
+        "channelMode": "AUTO",
+        "channel": 8,
+        "transmissionPower": "LOW",
+        "dutyCycle": 12,
+        "networkPanId": "networkPanId1",
+        "networkOptimizationOnGoing": true
+      }
+    ]
+  },
+  "epcTopology": {
+    "site": {
+      "id": "12345",
+      "name": "Electropole",
+      "description": "Description of the site",
+      "address": {
+        "street": "31 Rue Pierre Mendès",
+        "city": "Eybens",
+        "zipCode": "38320",
+        "stateCode": "ARA",
+        "countryCode": "FR"
+      },
+      "location": {
+        "latitude": 45.14841,
+        "longitude": 5.73708868
+      },
+      "companyName": "string",
+      "contactName": "string",
+      "marketSegment": "string"
+    },
+    "customUsages": [
+      {
+        "temporaryId": "string",
+        "name": "string"
+      }
+    ],
+    "devices": [
+      {
+        "localId": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ],
+        "temporaryPanelId": "string",
+        "temporaryEquipmentId": "string",
+        "name": "string",
+        "label": "string",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "communication": {
+          "pdmIdentifier": 15144,
+          "commissioningHint": "Electropole - Main Switchboard",
+          "vendorUrl": "https://se.com",
+          "isRoot": false,
+          "communicationNodes": [
+            {
+              "type": "LORA",
+              "communicationNetworkTemporaryId": "string",
+              "localId": "string",
+              "name": "Port 1",
+              "rank": 1,
+              "connectionStatus": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING",
+              "address": "slaveAddress | IEEEAddress | rfid",
+              "isMaster": true
+            }
+          ]
+        },
+        "firmware": {
+          "version": "2.2.0",
+          "updateProtocol": "IP",
+          "mode": "BOOT"
+        },
+        "hardware": {
+          "type": "compact NSX",
+          "version": "1.2.1"
+        },
+        "electrical": {
+          "ratedCurrent": 16.5,
+          "ratedVoltage": 16.5,
+          "noOfPoles": 3,
+          "load": {
+            "name": "Light Kitchen"
+          },
+          "mountingPosition": {
+            "position": "TOP",
+            "dataPointId": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+          },
+          "tripCurveType": "B",
+          "isIncomer": false
+        },
+        "dataPoints": [
+          {
+            "name": "string",
+            "localId": "3 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+            "digitalIdentifiers": [
+              {
+                "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+                "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+              }
+            ],
+            "usage": {
+              "localId": "101",
+              "type": "ACID",
+              "temporaryUsageId": "string"
+            },
+            "measurements": [
+              {
+                "localId": "5",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "alarms": [
+              {
+                "localId": "4",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "events": [
+              {
+                "localId": "6",
+                "pdmShortNameId": "Whr_I",
+                "triggeredBy": [
+                  "EDM_01",
+                  "EDM_02",
+                  "EDM_03"
+                ]
+              }
+            ],
+            "powerFeed": "TOP",
+            "wiring": "A",
+            "commodity": {
+              "type": "ElectricityID",
+              "customType": "string"
+            }
+          }
+        ],
+        "temporaryGatewayId": "string",
+        "testWeb": {
+          "testStatus": "OK",
+          "comments": "comments regarding test",
+          "testDate": "2020-07-06"
+        }
+      }
+    ],
+    "panels": [
+      {
+        "temporaryId": "string",
+        "name": "Lobby principal",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "lifeCycle": {
+          "manufacturingDate": "2020-07-06",
+          "installationDate": "2020-07-06",
+          "manufacturingPlant": "IN-Hubli SC Luminous"
+        },
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ]
+      }
+    ],
+    "gateways": [
+      {
+        "localId": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ],
+        "temporaryPanelId": "string",
+        "temporaryEquipmentId": "string",
+        "name": "string",
+        "label": "string",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "communication": {
+          "pdmIdentifier": 15144,
+          "commissioningHint": "Electropole - Main Switchboard",
+          "vendorUrl": "https://se.com",
+          "isRoot": false,
+          "communicationNodes": [
+            {
+              "type": "LORA",
+              "communicationNetworkTemporaryId": "string",
+              "localId": "string",
+              "name": "Port 1",
+              "rank": 1,
+              "connectionStatus": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING",
+              "address": "slaveAddress | IEEEAddress | rfid",
+              "isMaster": true
+            }
+          ]
+        },
+        "firmware": {
+          "version": "2.2.0",
+          "updateProtocol": "IP",
+          "mode": "BOOT"
+        },
+        "hardware": {
+          "type": "compact NSX",
+          "version": "1.2.1"
+        },
+        "electrical": {
+          "ratedCurrent": 16.5,
+          "ratedVoltage": 16.5,
+          "noOfPoles": 3,
+          "load": {
+            "name": "Light Kitchen"
+          },
+          "mountingPosition": {
+            "position": "TOP",
+            "dataPointId": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+          },
+          "tripCurveType": "B",
+          "isIncomer": false
+        },
+        "dataPoints": [
+          {
+            "name": "string",
+            "localId": "3 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+            "digitalIdentifiers": [
+              {
+                "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+                "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+              }
+            ],
+            "usage": {
+              "localId": "101",
+              "type": "ACID",
+              "temporaryUsageId": "string"
+            },
+            "measurements": [
+              {
+                "localId": "5",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "alarms": [
+              {
+                "localId": "4",
+                "pdmShortNameId": "Whr_I"
+              }
+            ],
+            "events": [
+              {
+                "localId": "6",
+                "pdmShortNameId": "Whr_I",
+                "triggeredBy": [
+                  "EDM_01",
+                  "EDM_02",
+                  "EDM_03"
+                ]
+              }
+            ],
+            "powerFeed": "TOP",
+            "wiring": "A",
+            "commodity": {
+              "type": "ElectricityID",
+              "customType": "string"
+            }
+          }
+        ],
+        "temporaryId": "string"
+      }
+    ],
+    "equipments": [
+      {
+        "id": "string",
+        "temporaryId": "string",
+        "temporaryPanelId": "string",
+        "name": "Equipment name",
+        "label": "Equipment label",
+        "type": "COMPACT_NSX",
+        "identification": {
+          "commercialReference": "LV43v09",
+          "serialNumber": "498sf4sf4e60",
+          "brand": "Schneider Electric",
+          "range": "compact NSX",
+          "model": "6.3.e",
+          "family": "gateway"
+        },
+        "digitalIdentifiers": [
+          {
+            "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+            "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+          }
+        ]
+      }
+    ],
+    "metadata": [
+      {
+        "key": "string",
+        "value": "string"
+      }
+    ],
+    "communicationNetworks": [
+      {
+        "temporaryId": "network-1",
+        "type": "LORA",
+        "isEnabled": false
+      },
+      {
+        "temporaryId": "network-2",
+        "type": "MODBUS_SL",
+        "isEnabled": false,
+        "baudRate": 15,
+        "parity": "ODD",
+        "numberOfStopBits": 10,
+        "frameDelay": 5,
+        "silentInterval": 5
+      },
+      {
+        "temporaryId": "network-3",
+        "type": "ZIGBEE",
+        "isEnabled": true,
+        "channelMode": "AUTO",
+        "channel": 8,
+        "transmissionPower": "LOW",
+        "dutyCycle": 12,
+        "networkPanId": "networkPanId1",
+        "networkOptimizationOnGoing": true
+      }
+    ]
+  }
+}

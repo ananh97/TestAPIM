@@ -1,0 +1,31 @@
+{
+  "id": "/tags/Topology",
+  "name": "Topology",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [
+    {
+      "apiId": "/apis/commissioning-topology;rev=1",
+      "description": "v1",
+      "externalDocsDescription": null,
+      "externalDocsUrl": null
+    }
+  ],
+  "operationIds": [
+    "/apis/commissioning-topology/operations/getTopology",
+    "/apis/commissioning-topology/operations/updateTopology",
+    "/apis/commissioning-topology/operations/deleteTopology",
+    "/apis/commissioning-topology/operations/updatePartialTopology",
+    "/apis/commissioning-topology/operations/getFullTopology",
+    "/apis/commissioning-topology/operations/updateTopology_1",
+    "/apis/commissioning-topology/operations/createTopology",
+    "/apis/commissioning-topology/operations/generateReport",
+    "/apis/commissioning-topology/operations/searchTopologies",
+    "/apis/commissioning-topology/operations/searchTopologiesByGatewayData",
+    "/apis/commissioning-topology/operations/searchFullTopologies",
+    "/apis/commissioning-topology/operations/reconcileTopology",
+    "/apis/commissioning-topology/operations/createTopology_1",
+    "/apis/commissioning-topology/operations/getLoggedUserTopologies"
+  ],
+  "__GitModuleVersion": 17
+}

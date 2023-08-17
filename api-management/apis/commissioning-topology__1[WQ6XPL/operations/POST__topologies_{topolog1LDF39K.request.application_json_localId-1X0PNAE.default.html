@@ -1,0 +1,64 @@
+{
+  "localId": "2 (Warning: This field is deprecated, Please use digitalIdentifiers array with nameSpace OPERATEID)",
+  "digitalIdentifiers": [
+    {
+      "urn:edm-se:em:core:pr:digital_id_namespace": "UNIVERSALID",
+      "urn:edm-se:em:core:pr:digital_id": "ca7fe00e-f2b3-11ec-b939-0242ac120002"
+    }
+  ],
+  "panelId": "6dceadd1-8e13-490f-985b-29500e852a61",
+  "gatewayId": "755ee1c8-3c5c-4d82-8f6f-ae14db0b218c",
+  "equipmentId": "12345678-f7e8-c821-aac4-c9a8f741f159",
+  "type": "DEVICE",
+  "name": "string",
+  "label": "string",
+  "identification": {
+    "commercialReference": "LV43v09",
+    "serialNumber": "498sf4sf4e60",
+    "brand": "Schneider Electric",
+    "range": "compact NSX",
+    "model": "6.3.e",
+    "family": "gateway"
+  },
+  "communication": {
+    "pdmIdentifier": 15144,
+    "commissioningHint": "Electropole - Main Switchboard",
+    "vendorUrl": "https://se.com",
+    "isRoot": false,
+    "communicationNodes": [
+      {
+        "type": "LORA",
+        "communicationNetworkTemporaryId": "string",
+        "localId": "string",
+        "name": "Port 1",
+        "rank": 1,
+        "connectionStatus": "JOINING | CONNECTED | NOT_CONNECTED | REMOVING",
+        "address": "slaveAddress | IEEEAddress | rfid",
+        "isMaster": true
+      }
+    ]
+  },
+  "firmware": {
+    "version": "2.2.0",
+    "updateProtocol": "IP",
+    "mode": "BOOT"
+  },
+  "hardware": {
+    "type": "compact NSX",
+    "version": "1.2.1"
+  },
+  "electrical": {
+    "ratedCurrent": 16.5,
+    "ratedVoltage": 16.5,
+    "noOfPoles": 3,
+    "load": {
+      "name": "Light Kitchen"
+    },
+    "mountingPosition": {
+      "position": "TOP",
+      "dataPointId": "af4bb483-7bc4-40e6-adfa-e3a93a6a8196"
+    },
+    "tripCurveType": "B",
+    "isIncomer": false
+  }
+}

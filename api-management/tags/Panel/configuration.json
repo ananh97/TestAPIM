@@ -1,0 +1,16 @@
+{
+  "id": "/tags/Panel",
+  "name": "Panel",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [
+    {
+      "apiId": "/apis/commissioning-topology;rev=1",
+      "description": "v1",
+      "externalDocsDescription": null,
+      "externalDocsUrl": null
+    }
+  ],
+  "operationIds": [],
+  "__GitModuleVersion": 17
+}

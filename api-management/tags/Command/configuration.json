@@ -1,0 +1,20 @@
+{
+  "id": "/tags/Command",
+  "name": "Command",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [
+    {
+      "apiId": "/apis/commissioning-topology;rev=1",
+      "description": "v1",
+      "externalDocsDescription": null,
+      "externalDocsUrl": null
+    }
+  ],
+  "operationIds": [
+    "/apis/commissioning-topology/operations/getCommands",
+    "/apis/commissioning-topology/operations/createCommand",
+    "/apis/commissioning-topology/operations/getCommand"
+  ],
+  "__GitModuleVersion": 17
+}

@@ -1,0 +1,134 @@
+<policies>
+	<inbound>
+		<rate-limit calls="35" renewal-period="5" />
+		<base />
+		<cors allow-credentials="true">
+			<allowed-origins>
+				<origin>https://cloud-commissioning-dev-api.azure-api.net</origin>
+			</allowed-origins>
+			<allowed-methods>
+				<method>*</method>
+			</allowed-methods>
+			<allowed-headers>
+				<header>*</header>
+			</allowed-headers>
+			<expose-headers>
+				<header>*</header>
+			</expose-headers>
+		</cors>
+		<set-variable name="token" value="@(context.Request.Headers.GetValueOrDefault("Authorization",""))" />
+		<choose>
+			<when condition="@(context.Product.Name != "commissioner" && !(context.Product.Name == "ALM" && !((String)context.Variables["token"]).Equals("")))">
+				<choose>
+					<when condition="@(context.Product.Name == "IVV" || context.Product.Name == "ALM" || context.Product.Name == "Fake commissioner" || context.Product.Name == "gatewayCertificate")">
+						<!-- Skip the IDMS validation, only ALM should be used in production -->
+					</when>
+					<when condition="@(!(context.Request.Method == "GET" || new Regex("^/topologies(/search)|(/.*/commands/.*/feedbacks)$").IsMatch(context.Request.Url.Path)))">
+						<return-response>
+							<set-status code="403" reason="Forbidden" />
+						</return-response>
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when condition="@(((String)context.Variables["token"]).Equals(""))">
+						<return-response>
+							<set-status code="401" reason="Unauthorized" />
+							<set-header name="WWW-Authenticate" exists-action="override">
+								<value>Missing IDMS token</value>
+							</set-header>
+						</return-response>
+					</when>
+				</choose>
+				<choose>
+					<when condition="@(!context.Variables.ContainsKey("userInfo"))">
+						<send-request ignore-error="false" timeout="20" response-variable-name="idmsClientReq" mode="new">
+							<set-url>https://cloud-c11g-dev-kv.vault.azure.net/secrets/v1-17-idmsClient/?api-version=7.0</set-url>
+							<set-method>GET</set-method>
+							<authentication-managed-identity resource="https://vault.azure.net" />
+						</send-request>
+						<send-request ignore-error="false" timeout="20" response-variable-name="idmsSecretReq" mode="new">
+							<set-url>https://cloud-c11g-dev-kv.vault.azure.net/secrets/v1-17-idmsSecret/?api-version=7.0</set-url>
+							<set-method>GET</set-method>
+							<authentication-managed-identity resource="https://vault.azure.net" />
+						</send-request>
+						<choose>
+							<when condition="@(((IResponse)context.Variables["idmsClientReq"]).StatusCode != 200 || ((IResponse)context.Variables["idmsSecretReq"]).StatusCode != 200)">
+								<return-response>
+									<set-status code="500" reason="BadKeyVaultConfiguration" />
+									<set-header name="WWW-Authenticate" exists-action="override">
+										<value>IDMS credentials not found in key vault</value>
+									</set-header>
+								</return-response>
+							</when>
+						</choose>
+						<set-variable name="idmsClient" value="@(((IResponse)context.Variables["idmsClientReq"]).Body.As<JObject>()["value"].ToString())" />
+						<set-variable name="idmsSecret" value="@(((IResponse)context.Variables["idmsSecretReq"]).Body.As<JObject>()["value"].ToString())" />
+						<set-variable name="idmsIntrospectionRequestStartMs" value="@(DateTimeOffset.Now.ToUnixTimeMilliseconds())" />
+						<send-request mode="new" response-variable-name="tokenstate" timeout="20" ignore-error="true">
+							<set-url>https://se--uatbfo22.sandbox.my.site.com/identity/services/oauth2/introspect</set-url>
+							<set-method>POST</set-method>
+							<set-header name="Content-Type" exists-action="override">
+								<value>application/x-www-form-urlencoded</value>
+							</set-header>
+							<set-body>@($"token={(string)context.Variables["token"]}&token_type_hint=access_token&client_id={(string)context.Variables["idmsClient"]}&client_secret={(string)context.Variables["idmsSecret"]}")</set-body>
+						</send-request>
+						<set-variable name="idmsIntrospectionReqStatusCode" value="@((Int32)((IResponse)context.Variables["tokenstate"]).StatusCode)" />
+						<trace source="commissionner-policy" severity="information">
+							<message>idms-introspection-request</message>
+							<metadata name="durationMs" value="@((DateTimeOffset.Now.ToUnixTimeMilliseconds()-((Int64)context.Variables["idmsIntrospectionRequestStartMs"])).ToString())" />
+							<metadata name="statusCode" value="@(((Int32)context.Variables["idmsIntrospectionReqStatusCode"]).ToString())" />
+						</trace>
+						<set-variable name="idmsIntrospectionBody" value="@(((IResponse)context.Variables["tokenstate"]).Body.As<JObject>())" />
+						<choose>
+							<when condition="@(((Int32)context.Variables["idmsIntrospectionReqStatusCode"]) != 200)">
+								<return-response>
+									<set-status code="401" reason="Unauthorized" />
+									<set-header name="WWW-Authenticate" exists-action="override">
+										<value>Bearer error="invalid_idms_token"</value>
+									</set-header>
+								</return-response>
+							</when>
+							<when condition="@(!(bool)((JObject)context.Variables["idmsIntrospectionBody"])["active"])">
+								<return-response>
+									<set-status code="401" reason="Unauthorized" />
+									<set-header name="WWW-Authenticate" exists-action="override">
+										<value>Bearer error="expired_token"</value>
+									</set-header>
+								</return-response>
+							</when>
+						</choose>
+					</when>
+				</choose>
+				<set-header name="User-Idms-Token" exists-action="override">
+					<value>@((String)context.Variables["token"])</value>
+				</set-header>
+				<set-header name="CC-Correlation-Id" exists-action="override">
+					<value>@(context.RequestId.ToString())</value>
+				</set-header>
+			</otherwise>
+		</choose>
+		<set-header name="User-Info" exists-action="override">
+			<value>@("{\"name\":\"" + context.Product.Name + "\",\"custom_attributes\":{\"federatedId\":\""+context.Product.Name+ "\", \"firstName\":\"noUserDefined\", \"lastName\":\"noUserDefined\"}}")</value>
+		</set-header>
+		<set-header name="X-Client-Id" exists-action="override">
+			<value>@(context.Subscription.Name)</value>
+		</set-header>
+	</inbound>
+	<backend>
+		<base />
+	</backend>
+	<outbound>
+		<base />
+		<set-header name="Content-Security-Policy" exists-action="override">
+			<value>default-src "none"; script-src "self"; connect-src "self"; img-src "self"; style-src "self"; frame-ancestors "self"; form-action "self"; frame-src "self"</value>
+		</set-header>
+		<set-header name="Referrer-Policy" exists-action="override">
+			<value>origin</value>
+		</set-header>
+	</outbound>
+	<on-error>
+		<base />
+	</on-error>
+</policies>

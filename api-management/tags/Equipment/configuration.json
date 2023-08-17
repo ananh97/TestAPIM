@@ -1,0 +1,22 @@
+{
+  "id": "/tags/Equipment",
+  "name": "Equipment",
+  "apiIds": [],
+  "productIds": [],
+  "descriptions": [
+    {
+      "apiId": "/apis/commissioning-topology;rev=1",
+      "description": "v1",
+      "externalDocsDescription": null,
+      "externalDocsUrl": null
+    }
+  ],
+  "operationIds": [
+    "/apis/commissioning-topology/operations/getEquipment",
+    "/apis/commissioning-topology/operations/updateEquipment",
+    "/apis/commissioning-topology/operations/deleteEquipment",
+    "/apis/commissioning-topology/operations/getEquipments",
+    "/apis/commissioning-topology/operations/addEquipment"
+  ],
+  "__GitModuleVersion": 17
+}
